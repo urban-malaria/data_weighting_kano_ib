@@ -1,0 +1,26 @@
+{
+    "id": "0D82799F",
+    "path": "~/Documents/cross_sectional_survey_data_cleaning/kano_weights_yusuf/03_ib_weight_analysis_dry.R",
+    "project_path": "03_ib_weight_analysis_dry.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1740419121834.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "125,135",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1740768483,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1740768483526,
+    "read_only": false,
+    "read_only_alternatives": []
+}

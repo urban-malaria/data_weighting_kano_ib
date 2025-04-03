@@ -1,0 +1,26 @@
+{
+    "id": "DDC83371",
+    "path": "~/Documents/cross_sectional_survey_data_cleaning/kano_weights_yusuf/loadpath.R",
+    "project_path": "loadpath.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1740418627810.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "0,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1729032853,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1729032853,
+    "read_only": false,
+    "read_only_alternatives": []
+}

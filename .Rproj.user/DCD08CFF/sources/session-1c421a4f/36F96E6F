@@ -1,0 +1,26 @@
+{
+    "id": "36F96E6F",
+    "path": "~/Documents/cross_sectional_survey_data_cleaning/kano_weights_yusuf/03b_kano_weight_wet.R",
+    "project_path": "03b_kano_weight_wet.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1741613691926.0,
+    "source_on_save": false,
+    "relative_order": 34,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "157,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1742318514,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1742318514102,
+    "read_only": false,
+    "read_only_alternatives": []
+}

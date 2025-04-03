@@ -1,0 +1,26 @@
+{
+    "id": "F9AE1D90",
+    "path": "~/Documents/cross_sectional_survey_data_cleaning/kano_weights_yusuf/04_merging_dataset.R",
+    "project_path": "04_merging_dataset.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": true,
+    "created": 1741737165607.0,
+    "source_on_save": false,
+    "relative_order": 47,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "72,34",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1742387419,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1742387483570,
+    "read_only": false,
+    "read_only_alternatives": []
+}

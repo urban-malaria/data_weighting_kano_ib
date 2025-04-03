@@ -1,0 +1,167 @@
+
+
+
+
+library(haven)
+kano_dryseason_wide_data <- read_dta("~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Dry Season Data/Wide Data/kano_dryseason_wide_data.dta")
+View(kano_dryseason_wide_data)
+
+
+
+library(dplyr)
+
+# Add "_men" to columns 253 to 550 if not already present
+kano_dryseason_wide_data_new <- kano_dryseason_wide_data %>%
+  rename_with(~ ifelse(!grepl("men", .), paste0(., "_men"), .), .cols = 253:550)
+
+write_dta(kano_dryseason_wide_data_new, "~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Dry Season Data/Wide Data/kano_dryseason_wide_data_final.dta")
+
+write.csv(kano_dryseason_wide_data_new, "~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Dry Season Data/Wide Data/kano_dryseason_wide_data_final.csv")
+
+
+
+weight_wet <- kano_wetseason_long_data %>%
+  select(1,153:159)%>%
+  distinct()
+
+# Add "_men" to columns 253 to 550 if not already present
+kano_wetseason_wide_data_final_new <- kano_wetseason_wide_data_final %>%
+  rename_with(~ ifelse(!grepl("men", .), paste0(., "_men"), .), .cols = 491:793)%>%
+  inner_join( weight_wet, by="sn")
+
+
+
+
+
+write_dta(kano_wetseason_wide_data_final_new, "~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Wet Season Data/Wide Data/kano_wetseason_wide_data_final.dta")
+
+write.csv(kano_wetseason_wide_data_final_new, "~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Kano/Wet Season Data/Wide Data/kano_wetseason_wide_data_final.csv")
+
+
+ibadan_long_wet <- read.csv("~/Urban Malaria Proj Dropbox/urban_malaria/data/nigeria/kano_ibadan_epi/Combined Working Data/Ibadan/Wet Season Data/Long Data/ibadan_long_wetseason_household_members_with_ind_netsupdated.csv")
+
+dbskn1 <- filter(kano_wetseason_long_data, q303==1)%>%
+  select(sn,q303,q302)
+
+dbskn2 <- filter(kano_dryseason_long_data, q303==1)%>%
+  select(sn,q303,q302)
+
+dbsib1 <- filter(ibadan_long_wet, q303==1)%>%
+  select(sn,q303,q302)
+
+dbsib2 <- filter(Ibadan_long_dry_season_household_members_records, q303==1)%>%
+  select(sn,q303,q302)
+
+table(dbsall$q302)
+
+dbsall <- rbind(dbskn1,dbskn2,dbsib1,dbsib2)
+
+all <- rbind(kn1,kn2,ib1,ib2)
+
+
+unfkn1 <- kano_wetseason_long_data%>%
+  select(sn,q301,q302)
+
+unfkn2 <- kano_dryseason_long_data %>%
+  select(sn,q301,q302)
+
+unfib1 <-ibadan_long_wet %>%
+  select(sn,q301,q302)
+
+unfib2 <- Ibadan_long_dry_season_household_members_records %>%
+  select(sn,q301,q302)
+
+
+all2 <- rbind(kn1,kn2,ib1,ib2)
+
+
+
+dryseasontpr <- kano_dryseason_long_data %>%
+  filter(q302 %in% c(1,2))%>%
+  group_by(as_factor(q302) )%>%
+  summarise(
+    Total = n()
+  )%>%
+  ungroup()%>%
+  mutate(Percentage = Total/sum(Total)
+         )
+dryseasontpr <- rename(dryseasontpr,  Result = 'as_factor(q302)')
+
+write.csv(dryseasontpr, "dryseason_overalltpr.csv")
+
+
+
+
+
+
+
+wetseasontpr <- kano_wetseason_long_data %>%
+  filter(q302 %in% c(1,2))%>%
+  group_by(as_factor(q302) )%>%
+  summarise(
+    Total = n()
+  )%>%
+  ungroup()%>%
+  mutate(Percentage = Total/sum(Total)
+  )
+wetseasontpr <- rename(wetseasontpr,  Result = 'as_factor(q302)')
+
+write.csv(wetseasontpr, "wetseason_overalltpr.csv")
+
+
+
+
+
+##################Ward SUmmaries###################################
+#Dry
+dryseasonwardtpr <- kano_dryseason_long_data %>%
+  filter(q302 %in% c(1,2))%>%
+  group_by(ward, as_factor(q302) )%>%
+  summarise(
+    Total = n()
+  )%>%
+  ungroup()%>%
+  group_by(ward)%>%
+  mutate(Percentage = Total/sum(Total)
+  )
+dryseasonwardtpr <- rename(dryseasonwardtpr,  Result = 'as_factor(q302)')
+
+write.csv(dryseasonwardtpr, "dryseasonward_tpr.csv")
+
+
+
+
+#Wet
+
+wetseasonwardtpr <- kano_wetseason_long_data %>%
+  filter(q302 %in% c(1,2))%>%
+  group_by(wardn, as_factor(q302) )%>%
+  summarise(
+    Total = n()
+  )%>%
+  ungroup()%>%
+  group_by(wardn)%>%
+  mutate(Percentage = Total/sum(Total)
+  )
+wetseasonwardtpr <- rename(wetseasonwardtpr,  Result = 'as_factor(q302)')
+
+write.csv(wetseasonwardtpr, "wetseasonward_tpr.csv")
+
+
+
+# Convert percentage to readable format
+wetseasonwardtpr$Percentage <- round(wetseasonwardtpr$Percentage * 100, 1)
+
+# Plot
+library(ggplot2)
+ggplot(wetseasonwardtpr, aes(x = wardn, y = Total, fill = Result )) +
+  geom_bar(stat = "identity" , alpha=0.6) +
+  scale_fill_manual(values = c("NEGATIVE" = "green", "POSITIVE" = "red")) +
+  geom_text(aes(label = paste0(Percentage, "%")), 
+            position = position_stack(vjust = 0.5), 
+            color = "brown", size = 5) +
+  labs(title = "TPR by Ward - Wet Season", 
+       y = "Total Tested",
+       fill = "Test Result - by Ward",
+       caption = "Data source: Cross Sectional Survey Wet Season Data, Kano") +
+  theme_bw()
